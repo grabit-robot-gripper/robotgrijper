@@ -1,0 +1,113 @@
+\hypertarget{_grijpersensor_8ino}{\section{Grijpersensor.\-ino File Reference}
+\label{_grijpersensor_8ino}\index{Grijpersensor.\-ino@{Grijpersensor.\-ino}}
+}
+
+
+A sketch for reading sensor values and sending it with Bluetooth to a serial monitor.  
+
+
+{\ttfamily \#include $<$Software\-Serial.\-h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{_grijpersensor_8ino_af1d722b858b750ddb4d06b4e2eae635b}{\#define \hyperlink{_grijpersensor_8ino_af1d722b858b750ddb4d06b4e2eae635b}{force\-Sensor\-Count}~4}\label{_grijpersensor_8ino_af1d722b858b750ddb4d06b4e2eae635b}
+
+\begin{DoxyCompactList}\small\item\em Amount of force sensors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Software\-Serial \hyperlink{_grijpersensor_8ino_a3c52699dba2d8c69c28988fc841c1c3e}{B\-Tserial} (2, 3)
+\begin{DoxyCompactList}\small\item\em The bluetooth Software\-Serial for the bluetooth H\-C-\/06. \end{DoxyCompactList}\item 
+\hypertarget{_grijpersensor_8ino_a4fc01d736fe50cf5b977f755b675f11d}{void \hyperlink{_grijpersensor_8ino_a4fc01d736fe50cf5b977f755b675f11d}{setup} ()}\label{_grijpersensor_8ino_a4fc01d736fe50cf5b977f755b675f11d}
+
+\begin{DoxyCompactList}\small\item\em This function sets up the communication with the bluetooth. \end{DoxyCompactList}\item 
+void \hyperlink{_grijpersensor_8ino_a9745f35ca229658cc342286ea75c0b77}{setup\-Timer} ()
+\begin{DoxyCompactList}\small\item\em This function sets up the timer to generate an interrupt every 125 ms. \end{DoxyCompactList}\item 
+void \hyperlink{_grijpersensor_8ino_afe461d27b9c48d5921c00d521181f12f}{loop} ()
+\begin{DoxyCompactList}\small\item\em This Arduino is executed continuously. \end{DoxyCompactList}\item 
+\hyperlink{_grijpersensor_8ino_ad39420cdd896dd12c68e36313139d0a5}{I\-S\-R} (T\-I\-M\-E\-R1\-\_\-\-C\-O\-M\-P\-A\-\_\-vect)
+\begin{DoxyCompactList}\small\item\em An interrupt service routine to log data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{_grijpersensor_8ino_adc08ed1554f35803d229aeaf11216b3f}{char {\bfseries c} = ' '}\label{_grijpersensor_8ino_adc08ed1554f35803d229aeaf11216b3f}
+
+\item 
+\hypertarget{_grijpersensor_8ino_aaa90a429df8bee3b9a5abc2d461504c7}{boolean \hyperlink{_grijpersensor_8ino_aaa90a429df8bee3b9a5abc2d461504c7}{B\-Tconnected} = false}\label{_grijpersensor_8ino_aaa90a429df8bee3b9a5abc2d461504c7}
+
+\begin{DoxyCompactList}\small\item\em B\-Tconnected will be have the value 'false' whenthe Bluetooth is not connected and 'true' when connected. \end{DoxyCompactList}\item 
+\hypertarget{_grijpersensor_8ino_a5b25b10ec39285cd67d590282c885137}{const byte {\bfseries B\-Tpin} = 4}\label{_grijpersensor_8ino_a5b25b10ec39285cd67d590282c885137}
+
+\item 
+unsigned int \hyperlink{_grijpersensor_8ino_a6099e7bd1f83195ab2a72d7f11b27747}{force\-Sensors} \mbox{[}\hyperlink{_grijpersensor_8ino_af1d722b858b750ddb4d06b4e2eae635b}{force\-Sensor\-Count}\mbox{]} = \{A1, A2, A3, A4\}
+\begin{DoxyCompactList}\small\item\em Array containg the pins of the force sensors. \end{DoxyCompactList}\item 
+int \hyperlink{_grijpersensor_8ino_add646649e927be589ada2150d1c32051}{force\-Sensor\-Values} \mbox{[}\hyperlink{_grijpersensor_8ino_af1d722b858b750ddb4d06b4e2eae635b}{force\-Sensor\-Count}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array containing the force sensor values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A sketch for reading sensor values and sending it with Bluetooth to a serial monitor. \hyperlink{_grijpersensor_8ino}{Grijpersensor.\-ino} is a sketch to connect the H\-C-\/06 module and communicate using the serial monitor. When the H\-C-\/06 is powered, the H\-C-\/06 defaults to communication mode. The default baud rate for communication mode is 9600. 
+
+\subsection{Function Documentation}
+\hypertarget{_grijpersensor_8ino_a3c52699dba2d8c69c28988fc841c1c3e}{\index{Grijpersensor.\-ino@{Grijpersensor.\-ino}!B\-Tserial@{B\-Tserial}}
+\index{B\-Tserial@{B\-Tserial}!Grijpersensor.ino@{Grijpersensor.\-ino}}
+\subsubsection[{B\-Tserial}]{\setlength{\rightskip}{0pt plus 5cm}Software\-Serial B\-Tserial (
+\begin{DoxyParamCaption}
+\item[{2}]{, }
+\item[{3}]{}
+\end{DoxyParamCaption}
+)}}\label{_grijpersensor_8ino_a3c52699dba2d8c69c28988fc841c1c3e}
+
+
+The bluetooth Software\-Serial for the bluetooth H\-C-\/06. 
+
+The first argument is R\-X on the Arduino. The second argument is T\-X on the Arduino. The R\-X and T\-X of the Arduino are connected to the T\-X and R\-X of the Bluetooth, respectively. The Arduino-\/\-T\-X is connected to the Bluetooth-\/\-R\-X through a voltage divider \hypertarget{_grijpersensor_8ino_ad39420cdd896dd12c68e36313139d0a5}{\index{Grijpersensor.\-ino@{Grijpersensor.\-ino}!I\-S\-R@{I\-S\-R}}
+\index{I\-S\-R@{I\-S\-R}!Grijpersensor.ino@{Grijpersensor.\-ino}}
+\subsubsection[{I\-S\-R}]{\setlength{\rightskip}{0pt plus 5cm}I\-S\-R (
+\begin{DoxyParamCaption}
+\item[{T\-I\-M\-E\-R1\-\_\-\-C\-O\-M\-P\-A\-\_\-vect}]{}
+\end{DoxyParamCaption}
+)}}\label{_grijpersensor_8ino_ad39420cdd896dd12c68e36313139d0a5}
+
+
+An interrupt service routine to log data. 
+
+This function is called every 125 ms. The functions sends the sensor readings to the bluetooth Software\-Serial. \hypertarget{_grijpersensor_8ino_afe461d27b9c48d5921c00d521181f12f}{\index{Grijpersensor.\-ino@{Grijpersensor.\-ino}!loop@{loop}}
+\index{loop@{loop}!Grijpersensor.ino@{Grijpersensor.\-ino}}
+\subsubsection[{loop}]{\setlength{\rightskip}{0pt plus 5cm}void loop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_grijpersensor_8ino_afe461d27b9c48d5921c00d521181f12f}
+
+
+This Arduino is executed continuously. 
+
+Reads from Arduino Serial Monitor input field and sends it to H\-C-\/06. \hypertarget{_grijpersensor_8ino_a9745f35ca229658cc342286ea75c0b77}{\index{Grijpersensor.\-ino@{Grijpersensor.\-ino}!setup\-Timer@{setup\-Timer}}
+\index{setup\-Timer@{setup\-Timer}!Grijpersensor.ino@{Grijpersensor.\-ino}}
+\subsubsection[{setup\-Timer}]{\setlength{\rightskip}{0pt plus 5cm}void setup\-Timer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_grijpersensor_8ino_a9745f35ca229658cc342286ea75c0b77}
+
+
+This function sets up the timer to generate an interrupt every 125 ms. 
+
+Timer 1 is used. 
+
+\subsection{Variable Documentation}
+\hypertarget{_grijpersensor_8ino_a6099e7bd1f83195ab2a72d7f11b27747}{\index{Grijpersensor.\-ino@{Grijpersensor.\-ino}!force\-Sensors@{force\-Sensors}}
+\index{force\-Sensors@{force\-Sensors}!Grijpersensor.ino@{Grijpersensor.\-ino}}
+\subsubsection[{force\-Sensors}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int force\-Sensors\mbox{[}{\bf force\-Sensor\-Count}\mbox{]} = \{A1, A2, A3, A4\}}}\label{_grijpersensor_8ino_a6099e7bd1f83195ab2a72d7f11b27747}
+
+
+Array containg the pins of the force sensors. 
+
+\hypertarget{_grijpersensor_8ino_add646649e927be589ada2150d1c32051}{\index{Grijpersensor.\-ino@{Grijpersensor.\-ino}!force\-Sensor\-Values@{force\-Sensor\-Values}}
+\index{force\-Sensor\-Values@{force\-Sensor\-Values}!Grijpersensor.ino@{Grijpersensor.\-ino}}
+\subsubsection[{force\-Sensor\-Values}]{\setlength{\rightskip}{0pt plus 5cm}int force\-Sensor\-Values\mbox{[}{\bf force\-Sensor\-Count}\mbox{]}}}\label{_grijpersensor_8ino_add646649e927be589ada2150d1c32051}
+
+
+Array containing the force sensor values. 
+

@@ -1,0 +1,141 @@
+#include "TmclCommand.h"
+#include <string.h>
+
+#define NBYTES 9
+
+
+
+// Constructor
+TmclCommand::TmclCommand(){
+
+}
+
+// Destructor
+TmclCommand::~TmclCommand(){
+}
+
+
+unsigned char *TmclCommand::mvp(unsigned long int decimal, bool right){
+  unsigned char *mvpCommand= new char[NBYTES]();
+  mvpCommand[0] = 0x01; // Target-address
+  mvpCommand[1] = 0x04; // Instruction Number
+  mvpCommand[2] = 0x01; // 
+  mvpCommand[3] = 0x01; // Motor/Bank
+  
+  unsigned char hexSteps[4];
+  if (right != true){
+    decimal = 4294967295 - decimal;
+  }
+
+  hexSteps[3] = decimal & 0xFF;
+  hexSteps[2] = (decimal >> 8) & 0xFF;
+  hexSteps[1] = (decimal >> 16) & 0xFF;
+  hexSteps[0] = (decimal >> 24) & 0xFF;
+
+
+  /* Setting of operand bytes 3, 2, 1, 0 (in that order, according to the firmware manual e.g. p. 13).
+      MSB first.
+      Operand byte 3 is mvpCommand[4], Operand byte 2 is mvpCommand[5] etc.
+   */
+  for (char i = 0; i < 4; i++){
+    mvpCommand[i + 4] = hexSteps[i];
+  }
+  
+  // Checksum
+  unsigned char i, checksum;
+  checksum = mvpCommand[0];
+  for(i = 1; i < NBYTES; i++){
+    checksum += mvpCommand[i];
+  }
+  mvpCommand[NBYTES - 1] = checksum;
+  return mvpCommand;
+}
+
+unsigned char *TmclCommand::stop(){
+  unsigned char *stopCommand= new char[NBYTES]();
+  stopCommand[0] = 0x01; // Target-address
+  stopCommand[1] = 0x03; // Instruction Number
+  stopCommand[2] = 0x00; // Type
+  stopCommand[3] = 0x01; // Motor/Bank
+
+  // Checksum
+  unsigned char i, checksum;
+  checksum = stopCommand[0];
+  for(i = 1; i < NBYTES; i++){
+    checksum += stopCommand[i];
+  }
+  stopCommand[NBYTES - 1] = checksum;
+  return stopCommand;
+}
+
+
+unsigned char *TmclCommand::ror(unsigned long int decimal){
+  unsigned char *rorCommand= new char[NBYTES]();
+  // Common settings
+  rorCommand[0] = 0x01; // Target-address
+  rorCommand[1] = 0x01; // Instruction Number
+  rorCommand[2] = 0x00; // Type
+  rorCommand[3] = 0x01; // Motor/Bank
+  
+  unsigned char hexSteps[4];
+
+  // todo: separate function for setting of operand bytes.
+  hexSteps[3] = decimal & 0xFF;
+  hexSteps[2] = (decimal >> 8) & 0xFF;
+  hexSteps[1] = (decimal >> 16) & 0xFF;
+  hexSteps[0] = (decimal >> 24) & 0xFF;
+
+
+  /* Setting of operand bytes 3, 2, 1, 0 (in that order, according to the firmware manual e.g. p. 13).
+      MSB first.
+      Operand byte 3 is mvpCommand[4], Operand byte 2 is mvpCommand[5] etc.
+   */
+  for (char i = 0; i < 4; i++){
+    rorCommand[i + 4] = hexSteps[i];
+  }
+
+  // Checksum
+  unsigned char i, checksum;
+  checksum = rorCommand[0];
+  for(i = 1; i < NBYTES; i++){
+    checksum += rorCommand[i];
+  }
+  rorCommand[NBYTES - 1] = checksum;
+  return rorCommand;
+}
+
+
+unsigned char *TmclCommand::rol(unsigned long int decimal){
+  unsigned char *rolCommand= new char[NBYTES]();
+  // Common settings
+  rolCommand[0] = 0x01; // Target-address
+  rolCommand[1] = 0x02; // Instruction Number
+  rolCommand[2] = 0x00; // Type
+  rolCommand[3] = 0x01; // Motor/Bank
+  
+  unsigned char hexSteps[4];
+
+  // todo: separate function for setting of operand bytes.
+  hexSteps[3] = decimal & 0xFF;
+  hexSteps[2] = (decimal >> 8) & 0xFF;
+  hexSteps[1] = (decimal >> 16) & 0xFF;
+  hexSteps[0] = (decimal >> 24) & 0xFF;
+
+
+  /* Setting of operand bytes 3, 2, 1, 0 (in that order, according to the firmware manual e.g. p. 13).
+      MSB first.
+      Operand byte 3 is mvpCommand[4], Operand byte 2 is mvpCommand[5] etc.
+   */
+  for (char i = 0; i < 4; i++){
+    rolCommand[i + 4] = hexSteps[i];
+  }
+
+  // Checksum
+  unsigned char i, checksum;
+  checksum = rolCommand[0];
+  for(i = 1; i < NBYTES; i++){
+    checksum += rolCommand[i];
+  }
+  rolCommand[NBYTES - 1] = checksum;
+  return rolCommand;
+}
