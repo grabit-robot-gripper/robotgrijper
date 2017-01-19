@@ -5,11 +5,6 @@
  *
  */
 
-
-/*
- * true: gripper moves up, motor rotates counterclockwise.
- * false: gripper moves down, motor rotates clockwise.
- */
 #include <TmclCommand.h>
 #include <avr/interrupt.h>  
 #include <avr/io.h>
@@ -68,7 +63,7 @@ void setup(){
   // Serial used for sending commands to the TMCM-KR-842
   Serial3.begin(9600);
   while (!Serial3) {
-    ; // wait for serial port to connect. Needed for native USB port only
+    ; // wait for serial port to connect.
     
   }
 
@@ -117,14 +112,6 @@ void setup(){
     Serial.println(str);
   }
 
-  //Serial3.write(mvpArray, sizeof(mvpArray));
-  //Serial3.write(mvpCommand);
-
-  //Serial3.write(rorArray, sizeof(rorArray));
-
-  //Serial3.write(mvpArray2, sizeof(mvpArray2));
-  //Serial3.write(mvpCommand2);
-
   Serial3.write(stopArray, sizeof(stopArray));
 }
 /**
@@ -160,17 +147,11 @@ void loop(){
 
       // Some feedback in the serial monitor.
       Serial.println("state: " + state);
+      // Command used with the end limit switch.
       //Serial3.write(rolArray, sizeof(rolArray));
-
+      
+      // Command used for testing with a fixed amount of steps to move the motor down.
       Serial3.write(mvpArray2, sizeof(mvpArray2));
-
-      /*
-      Serial.println("ror command");
-      for(int i=0; i<9; i++){
-        String str = String(rorArray[i], HEX);
-        Serial.println(str);
-      }*/
-      Serial3.read(); // weg?
     }
   }
   if (Serial3.available() > 0) {
